@@ -1,226 +1,50 @@
-# Apartaments Alanya - Динамічні ціни з бази даних
+# 🌴 Alanya Luxury Rentals Platform
 
-## Опис проекту
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-Web-000000?style=for-the-badge&logo=flask&logoColor=white)
+![Telegram API](https://img.shields.io/badge/Telegram_Bot-Admin_Panel-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-Database-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
 
-Це веб-сайт для оренди квартир в Аланії з можливістю динамічного завантаження цін з бази даних SQLite. Ціни для кожного апартаменту зберігаються в таблиці `prices` та автоматично відображаються на сайті.
+A commercial full-stack web platform for renting luxury apartments in Alanya, Turkey. The system features a **dynamic Content Management System (CMS) built directly into a Telegram Bot**, allowing the owner to manage prices, reviews, and bookings in real-time from their smartphone.
 
-## Структура файлів
+---
 
-- `index.html` - головна сторінка сайту
-- `style.css` - стилі сайту
-- `script.js` - JavaScript для функціональності та завантаження цін
-- `animations.css` - додаткові анімації
-- `app.py` - Flask сервер для API
-- `setup_database.py` - скрипт для налаштування бази даних
-- `bot.py` - Telegram бот для управління цінами
-- `requirements.txt` - залежності Python
-- `database.db` - файл бази даних SQLite
+## 🔴 Live Demo
+The project is deployed and fully functional:
+### [🌍 Visit Website (alanya-apartaments.com)](https://alanya-apartaments.com)
 
-## Налаштування та запуск
+---
 
-### 1. Налаштування бази даних
+## 🚀 Key Features
 
-Запустіть скрипт для створення таблиці та додавання тестових даних:
+### 🌐 Frontend (Multi-language & Interactive)
+* **5 Language Support:** Fully localized for EN, UA, TR, CZ, RU audiences.
+* **Modern UX/UI:** Cinematic video backgrounds, smooth scroll animations (`IntersectionObserver`), and glassmorphism design.
+* **Dynamic Data:** Prices and reviews are fetched asynchronously via REST API endpoints (`/api/prices`) without page reloads.
 
-```bash
-python setup_database.py
-```
+### 🤖 Telegram Admin Bot (The "Brain")
+Instead of a complex web admin panel, this project uses a Telegram Bot for instant management:
+* **Real-time Price Updates:** Change rental rates for any apartment instantly via bot buttons.
+* **Review Moderation:** Receive new reviews from the site directly to the bot and approve/delete them.
+* **Admin Management:** Securely add or remove other managers via chat commands.
+* **Contact Updates:** Change the contact phone number displayed on the site on the fly.
 
-### 2. Встановлення залежностей
+### ⚙️ Backend Architecture
+* **Server:** Flask (Python) handles HTTP requests, API routes, and serves static files.
+* **Database:** SQLite stores apartment data, user reviews, prices, and admin logs.
+* **API:** Custom JSON endpoints connect the frontend JS with the backend database.
 
-```bash
-pip install -r requirements.txt
-```
+---
 
-Або встановіть окремо:
-```bash
-pip install flask pyTelegramBotAPI
-```
+## 🛠️ Tech Stack
 
-### 3. Запуск веб-сервера
+| Component | Technology | Description |
+|-----------|------------|-------------|
+| **Core** | Python 3 | Backend logic |
+| **Web Framework** | Flask | API & Routing |
+| **Bot Library** | pyTelegramBotAPI | Async interaction with Telegram |
+| **Frontend** | HTML5, CSS3, JS | Vanilla JS, CSS Animations, Responsive Design |
+| **Database** | SQLite | Lightweight data storage |
 
-```bash
-python app.py
-```
+---
 
-Сервер буде запущений на `http://localhost:5000`
-
-### 4. Запуск Telegram бота (в окремому терміналі)
-
-```bash
-python bot.py
-```
-
-Бот буде доступний у Telegram за вашим токеном
-
-### 5. Відкриття сайту
-
-Відкрийте браузер та перейдіть на `http://localhost:5000`
-
-## Telegram бот
-
-Бот дозволяє керувати цінами на квартири через Telegram з інтуїтивним інтерфейсом кнопок:
-
-### Функції бота:
-- **💰 Переглянути ціни** - показує поточні ціни всіх квартир
-- **✏️ Змінити ціну** - інтерактивне меню для вибору квартири та введення нової ціни
-- **❓ Допомога** - інформація про використання бота
-
-### Як використовувати:
-1. Напишіть `/start` або просто почніть спілкування з ботом
-2. Натисніть на кнопки для навігації по меню
-3. Для зміни ціни оберіть квартиру та введіть нову ціну в чат
-4. Бот підтвердить успішне оновлення та покаже всі поточні ціни
-
-### Приклади форматів цін:
-- €85/ніч
-- ₴2500/ніч
-- $100/night
-
-### Безпека:
-Бот працює тільки для авторизованих користувачів (ваш chat ID: 5993122611)
-
-## Структура бази даних
-
-### Таблиця `prices`
-
-| Стовпець     | Тип    | Опис                    |
-|--------------|--------|-------------------------|
-| id          | INTEGER | Первинний ключ         |
-| Apartament1 | TEXT   | Ціна першого апартаменту |
-| Apartament2 | TEXT   | Ціна другого апартаменту |
-| Apartament3 | TEXT   | Ціна третього апартаменту |
-
-### Приклад даних
-
-```sql
-INSERT INTO prices (Apartament1, Apartament2, Apartament3)
-VALUES ('€85/ніч', '€70/ніч', '€120/ніч');
-```
-
-## API Endpoints
-
-### GET /api/prices
-
-Повертає ціни у форматі JSON:
-
-```json
-{
-  "apartament1": "€85/ніч",
-  "apartament2": "€70/ніч",
-  "apartament3": "€120/ніч"
-}
-```
-
-## Як це працює
-
-1. **Завантаження сторінки**: При завантаженні `index.html` виконується `script.js`
-2. **Запит до API**: JavaScript робить запит до `/api/prices` на Flask сервері
-3. **Отримання даних**: Сервер зчитує дані з таблиці `prices` в SQLite
-4. **Оновлення HTML**: JavaScript оновлює елементи з класами `.apartamentPrice` новими цінами
-
-## Код приклади
-
-### Підключення до SQLite в Python
-
-```python
-import sqlite3
-
-def get_prices():
-    conn = sqlite3.connect('database.db')
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT Apartament1, Apartament2, Apartament3 FROM prices LIMIT 1")
-    row = cursor.fetchone()
-
-    if row:
-        prices = {
-            'apartament1': row[0],
-            'apartament2': row[1],
-            'apartament3': row[2]
-        }
-
-    conn.close()
-    return prices
-```
-
-### Завантаження цін через JavaScript
-
-```javascript
-function loadPricesFromDatabase() {
-  fetch('/api/prices')
-    .then(response => response.json())
-    .then(data => {
-      updateApartmentPrices(data);
-    })
-    .catch(error => {
-      console.error('Error loading prices:', error);
-    });
-}
-
-function updateApartmentPrices(prices) {
-  const priceElements = document.querySelectorAll('.apartamentPrice');
-  priceElements.forEach((element, index) => {
-    if (index === 0 || index === 1) {
-      element.textContent = prices.apartament1;
-    } else if (index === 2 || index === 3) {
-      element.textContent = prices.apartament2;
-    } else {
-      element.textContent = prices.apartament3;
-    }
-  });
-}
-```
-
-## Налаштування цін
-
-Для зміни цін оновіть дані в таблиці `prices`:
-
-```python
-import sqlite3
-
-conn = sqlite3.connect('database.db')
-cursor = conn.cursor()
-
-cursor.execute('''
-    UPDATE prices
-    SET Apartament1 = ?, Apartament2 = ?, Apartament3 = ?
-    WHERE id = 1
-''', ('€90/ніч', '€75/ніч', '€130/ніч'))
-
-conn.commit()
-conn.close()
-```
-
-Після оновлення цін перезавантажте сторінку сайту - ціни будуть автоматично оновлені.
-
-## Особливості реалізації
-
-- ✅ Не змінює дизайн та верстку сайту
-- ✅ Не змінює інший функціонал (слайдери, форми, стилі)
-- ✅ Використовує тільки дані з таблиці `prices`
-- ✅ Автоматичне оновлення цін при завантаженні сторінки
-- ✅ Graceful fallback на дефолтні значення при помилках
-- ✅ Підтримка кількох екземплярів цін на сторінці
-- ✅ Telegram бот для управління цінами
-
-## Troubleshooting
-
-### Проблема: Ціни не оновлюються
-**Рішення**: Переконайтеся, що:
-1. Flask сервер запущений (`python app.py`)
-2. База даних `database.db` існує та містить таблицю `prices`
-3. В таблиці є хоча б один рядок з даними
-
-### Проблема: Помилка підключення до бази даних
-**Рішення**: Перевірте, чи встановлений sqlite3 та чи є права на читання файлу `database.db`
-
-### Проблема: API повертає помилку
-**Рішення**: Перевірте консоль браузера на наявність помилок та логи Flask сервера
-
-### Проблема: Бот не працює
-**Рішення**:
-1. Перевірте токен бота
-2. Переконайтеся, що chat ID правильний
-3. Перевірте підключення до інтернету
-4. Запустіть бота в окремому терміналі
